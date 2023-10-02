@@ -1,24 +1,33 @@
 import React, { useState } from 'react'
 import { TextInput, Button,Image,StyleSheet,Text,View} from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
+import { registerUser } from '../Methods/Users/methods';
+
 export const RegistrationScreen = () => {
   const [email, setEmail] = useState()
-  const [firstName, setFirstName] = useState()
-  const [lastName, setLastName] = useState()
+  const [name, setName] = useState()
+  const [gender, setGender] = useState()
+  const [age, setAge] = useState()
   const [password, setPassword] = useState()
   const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  const ageRegex=/^(1[0-9]|[2-9]\d)$/;
+  const genderRegex = /^(?:m|M|male|Male|f|F|female|Female)$/;
   const onSignUp = () =>{
-    if(!email || !password || !firstName || !lastName){
+    if(!email || !password || !name || !gender || !age){
       alert("Please fill all details!!")
     }else if(emailRegex.test(email)==false){
       alert("Enter valid email-id !!")
     }else if(passwordRegex.test(password) == false){
       alert("Password must be 8 charecter long. \n It contain atleast one uppercase latter. \n It contain atleast one lowercase latter.\n It contain atleast one special charecter. \n It contain atleast one number.")
+    }else if(ageRegex.test(age) == false){
+      alert("Enter valid age !!")
+    }else if(genderRegex.test(gender) == false){
+      alert("Enter valid gender !!")
     }else{
-      console.log("sign up api")
+      registerUser({email,password,name,gender,age});
     }
-    }
+  }
 
   return (
     <View style={styles.container}>
@@ -44,20 +53,29 @@ export const RegistrationScreen = () => {
       </View>
       <View style={styles.inputView}>
       <TextInput
-        placeholder='Your first name'
+        placeholder='Your name'
         placeholderTextColor={defaultColors.placeholder}
         style={styles.TextInput}
-        value={firstName}
-        onChangeText={setFirstName}
+        value={name}
+        onChangeText={setName}
       />
       </View>
       <View style={styles.inputView}>
       <TextInput
-        placeholder='Your last name'
+        placeholder='Your gender'
         placeholderTextColor={defaultColors.placeholder}
         style={styles.TextInput}
-        value={lastName}
-        onChangeText={setLastName}
+        value={gender}
+        onChangeText={setGender}
+      />
+      </View>
+      <View style={styles.inputView}>
+      <TextInput
+        placeholder='Your age'
+        placeholderTextColor={defaultColors.placeholder}
+        style={styles.TextInput}
+        value={age}
+        onChangeText={setAge}
       />
       </View>
       <Button style={styles.forgot_button} title='Create new account' onPress={onSignUp} />
