@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextInput, Button, Image, StyleSheet, View } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
-import SelectDropdown from 'react-native-select-dropdown'
+// import SelectDropdown from 'react-native-select-dropdown'
 export const CreateTask = ({ navigation, route}) => {
   const [title, setTitle] = useState()
   const [assignTo, setAssignTo] = useState()
@@ -48,7 +48,7 @@ export const CreateTask = ({ navigation, route}) => {
             onChangeText={setTitle}
           />
         </View>
-        <View style={styles.inputView}>
+        {/* <View style={styles.inputView}>
           <TextInput
             placeholder='Assigned user'
             placeholderTextColor={defaultColors.placeholder}
@@ -58,8 +58,8 @@ export const CreateTask = ({ navigation, route}) => {
             onChangeText={setAssignTo}
             readOnly
           />
-        </View>
-        <View style={styles.inputView}>
+        </View> */}
+        {/* <View style={styles.inputView}>
           <TextInput
             placeholder='Task discription'
             placeholderTextColor={defaultColors.placeholder}
@@ -68,8 +68,8 @@ export const CreateTask = ({ navigation, route}) => {
             value={discription}
             onChangeText={setDiscription}
           />
-        </View>
-        <View style={styles.inputView}>
+        </View> */}
+        {/* <View style={styles.inputView}>
         <SelectDropdown
           defaultButtonText="task status"
           buttonTextStyle={(setTaskStatus=='' || setTaskStatus==undefined)? btndrop : btndrop1}
@@ -93,7 +93,7 @@ export const CreateTask = ({ navigation, route}) => {
             return item
           }}
         />
-      </View>
+      </View> */}
         <ErrorMessage error={error} />
         <Button style={styles.forgot_button} title='Update This Task' onPress={handleUpdate} />
       </View>
@@ -111,7 +111,7 @@ export const CreateTask = ({ navigation, route}) => {
           onChangeText={setTitle}
         />
       </View>
-      <View style={styles.inputView}>
+      {/* <View style={styles.inputView}>
         <SelectDropdown
           defaultButtonText="Assign to user"
           buttonTextStyle={btndrop}
@@ -154,7 +154,7 @@ export const CreateTask = ({ navigation, route}) => {
             return item
           }}
         />
-      </View>
+      </View> */}
       <View style={styles.inputView}>
         <TextInput
           placeholder='Task discription'

@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { TextInput, Button,Image,StyleSheet,Text,View} from 'react-native'
-import { defaultColors, defaultStyles } from './styles/defaultStyles'
+import { defaultColors } from './styles/defaultStyles'
 export const RegistrationScreen = () => {
   const [email, setEmail] = useState()
   const [firstName, setFirstName] = useState()

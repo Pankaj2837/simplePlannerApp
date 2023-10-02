@@ -5,8 +5,6 @@ import { defaultColors, defaultStyles } from './styles/defaultStyles'
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { signIn } = useContext(AuthContext)
-  const onSignIn = () => signIn({ email, password })
   const onSignUp = () => navigation.navigate('SignUp')
 
   // render login form
@@ -35,7 +33,7 @@ export const LoginScreen = ({ navigation }) => {
     <TouchableOpacity>
       <Text style={styles.forgot_button} onPress={onSignUp}>Don't have an account? Click here to Sign In </Text> 
     </TouchableOpacity>
-    <Button title='Sign In' onPress={onSignIn} />
+    <Button title='Sign In' />
     </View>
   )
 }
