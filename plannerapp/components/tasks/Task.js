@@ -4,22 +4,22 @@ import { View, Text, Button, StyleSheet } from 'react-native'
 
 export const Task = ({ task, onDeleteClick,navigation}) => {
 console.log(task);
-  const onEditClick =(task)=>{
-   const selectedTaskDetails ={
-    id :task._id,
-    title:task.title,
-    assignTo:task.assignTo,
-    taskStatus:task.taskStatus,
-    discription:task.discription,
-    createdAt:task.createdAt
-   }
-    navigation.navigate('CreateTask',{
-      paramKey: selectedTaskDetails
-    });
-  }
+  // const onEditClick =(task)=>{
+  //  const selectedTaskDetails ={
+  //   id :task._id,
+  //   title:task.title,
+  //   assignTo:task.assignTo,
+  //   taskStatus:task.taskStatus,
+  //   discription:task.discription,
+  //   createdAt:task.createdAt
+  //  }
+  //   navigation.navigate('CreateTask',{
+  //     paramKey: selectedTaskDetails
+  //   });
+  // }
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
+      {/* <View style={styles.card}>
         <Text style={styles.title}>Title: {task.title}</Text>
         <Text style={styles.aggignUser}> Assigned User: {task.assignTo}</Text>
         <Text style={(task.taskStatus == 'OnHold') ? styles.statusOnhold : (task.taskStatus == 'InProgress') ? styles.statusInprogress : (task.taskStatus == 'Completed') ? styles.statusCompleted : styles.status}> Status: {task.taskStatus}</Text>
@@ -34,7 +34,8 @@ console.log(task);
             <Button style={styles.btn} title='   Edit    ' onPress={() => onEditClick(task)}/>
           </View>
         </View>
-      </View>
+      </View> */}
+      Task code will come here..
     </View>
   )
 }

@@ -1,39 +1,59 @@
 import React, { useState, useContext } from 'react'
-import { View, Text, TextInput, Button , StyleSheet,Image,TouchableOpacity} from 'react-native'
-import { defaultColors, defaultStyles } from './styles/defaultStyles'
-
+import { loginUser, retrieveData } from '../Methods/Users/methods';
+import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { defaultColors } from './styles/defaultStyles'
+import { renderScreens } from './MainNavigator';
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const onSignUp = () => navigation.navigate('SignUp')
+  const [loggedInUser, setLoggedInUser] = useState('')
+  const onSignUp = () => navigation.navigate('SignUp');
+
+  const onSignIn = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      alert("Please fill all details!!");
+    } else {
+      const logindata = loginUser({ email, password });
+      console.log(logindata);
+      setLoggedInUser(logindata);
+      const userValue = retrieveData();
+      if (userValue !== null) {
+        // We have data!!
+        renderScreens();
+      } else {
+        navigation.navigate("SignIn");
+      }
+    }
+  }
 
   // render login form
   return (
     <View style={styles.container}>
-    <Image style={styles.image} source={require("../assets/loginImg.png")} />
+      <Image style={styles.image} source={require("../assets/loginImg.png")} />
       <View style={styles.inputView}>
-      <TextInput
-        style={styles.TextInput}
-        placeholder='Your Email'
-        placeholderTextColor={defaultColors.placeholder}
-        value={email}
-        onChangeText={(email) => setEmail(email)}
-      /> 
-    </View> 
-    <View style={styles.inputView}>
-      <TextInput
-        style={styles.TextInput}
-        placeholder='Your Password'
-        placeholderTextColor={defaultColors.placeholder}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      /> 
-    </View>
-    <TouchableOpacity>
-      <Text style={styles.forgot_button} onPress={onSignUp}>Don't have an account? Click here to Sign In </Text> 
-    </TouchableOpacity>
-    <Button title='Sign In' />
+        <TextInput
+          style={styles.TextInput}
+          placeholder='Your Email'
+          placeholderTextColor={defaultColors.placeholder}
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder='Your Password'
+          placeholderTextColor={defaultColors.placeholder}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+      </View>
+      <TouchableOpacity>
+        <Text style={styles.forgot_button} onPress={onSignUp}>Don't have an account? Click here to Sign In </Text>
+      </TouchableOpacity>
+      <Button title='Sign In' onPress={onSignIn} />
     </View>
   )
 }

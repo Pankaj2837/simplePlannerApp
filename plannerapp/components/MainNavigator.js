@@ -1,28 +1,29 @@
-import React from 'react'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { HomeScreen } from './HomeScreen'
-import { LoginScreen } from './LoginScreen'
-import { RegistrationScreen } from './RegistrationScreen'
-import { NavigateButton } from '../components/NavigateButton'
-import { CreateTask } from './CreateTask'
-import { CreateGroup } from './Groups/CreateGroup'
+import {LoginScreen} from './LoginScreen'
+import {RegistrationScreen} from './RegistrationScreen';
+import {HomeScreen} from './HomeScreen';
+import { retrieveData, getUserById } from '../Methods/Users/methods';
 const Stack = createNativeStackNavigator()
+let id;
+  let userToken;
+  id = retrieveData();
+  if(typeof id !== 'object' && id !==null && id !=='' ){
+    const n = getUserById({id});
+    if(typeof n != 'undefined'){
+      userToken = id;
+    }else{
+      userToken =null;
+    }
 
-export const MainNavigator = () => {
-  const { userToken } = state
-
-  const renderScreens = () => {
-    if (userToken) {
-      // only authenticated users can visit these screens
-      // const headerLeft = () => (<NavigateButton title='My profile' route='Profile' />)
-      const headerRight = () => (<NavigateButton title='Add Task' route='CreateTask' />)
+  }else{
+    userToken ="";
+  }
+  export const renderScreens = () => {
+    if (typeof userToken !=='object' && userToken !=='' && userToken !==undefined ) {
       return (
         <>
-        <Stack.Screen name='CreateGroups' component={CreateGroup} options={{ title: 'Create Groups' }} />
-          <Stack.Screen name='Home' component={HomeScreen} options={{ title: '     Welcome Home',headerRight }} />
-          {/* <Stack.Screen name='Profile' component={ProfileScreen} options={{ title: 'Your Profile' }} /> */}
-          <Stack.Screen name='CreateTask' component={CreateTask} options={{ title: 'Create Task' }} />
+          <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ title: '     Welcome Home'}} />
         </>
       )
     }
@@ -41,10 +42,12 @@ export const MainNavigator = () => {
       </>
     )
   }
-
+export const MainNavigator = () => {
+  
+  
   return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }}>
+        <Stack.Navigator>
           {renderScreens()}
         </Stack.Navigator>
       </NavigationContainer>

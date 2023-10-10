@@ -6,7 +6,6 @@ const cors = require('cors');
 const mongoString = process.env.DATABASE_URL;
 
 const app = express();
-
 app.use(cors());
 
 const PORT = 3000;
