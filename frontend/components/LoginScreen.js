@@ -1,29 +1,53 @@
-import React, { useState, useContext } from 'react'
-import { loginUser, retrieveData } from '../Methods/Users/methods';
+import axios from 'axios';
+import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { retrieveData } from '../Methods/Users/methods';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
 import { renderScreens } from './MainNavigator';
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loggedInUser, setLoggedInUser] = useState('')
   const onSignUp = () => navigation.navigate('SignUp');
+  let userId;
+  let userValue;
+  const retrieveData1 = async () => {
+    try {
+      userValue = await AsyncStorage.getItem('userId');
+      console.log(userValue);
+      if (userValue !== null) {
+        return userValue;
+      } else {
+        return "not found";
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+  const storeLocalStorage = async (userId)=>{
+    try {
+      await AsyncStorage.setItem('userId', userId);
+      } catch (error) {
+      console.log(error);
+    }
+  }
 
   const onSignIn = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       alert("Please fill all details!!");
     } else {
-      const logindata = loginUser({ email, password });
-      console.log(logindata);
-      setLoggedInUser(logindata);
-      const userValue = retrieveData();
-      if (userValue !== null) {
-        // We have data!!
-        renderScreens();
-      } else {
-        navigation.navigate("SignIn");
-      }
+      const login = async ({ email, password }) => {
+         await axios.post('http://10.0.2.2:3000/api/getloggedInUser', { email: email, password: password }).then(function (response) {
+          // handle success
+           userId =  response.data._id;
+           storeLocalStorage(userId);
+        }).catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+      };
+      await login({ email, password });
     }
   }
 

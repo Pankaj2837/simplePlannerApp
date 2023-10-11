@@ -1,7 +1,6 @@
 import React from 'react'
 import { View,Text ,Button,StyleSheet} from 'react-native'
 import { TaskList } from './tasks/TaskList'
-import { clearAll } from '../Methods/Users/methods'
 export const HomeScreen = ({navigation}) => {
   
   return (
