@@ -4,7 +4,7 @@ import { TextInput, Button, Image, StyleSheet, View } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
 import SelectDropdown from 'react-native-select-dropdown'
 import { createNewTask } from '../Methods/Users/methods'
-export const CreateTask = ({ navigation, route}) => {
+export const CreateTask = ({ navigation, route }) => {
   const [title, setTitle] = useState()
   const [assignTo, setAssignTo] = useState()
   const [discription, setDiscription] = useState()
@@ -14,7 +14,7 @@ export const CreateTask = ({ navigation, route}) => {
   const getAllUsers = async () => {
     await axios.get('http://10.0.2.2:3000/api/tasks/getAllUsers').then(function (response) {
       // handle success
-      response.data.map((user)=>{
+      response.data.map((user) => {
         finalUsersList.push(user.name);
       });
     }).catch(function (error) {
@@ -23,20 +23,20 @@ export const CreateTask = ({ navigation, route}) => {
     })
   }
   getAllUsers();
- 
+
   const handleSubmit = (e) => {
-    createNewTask({title,assignTo,discription,taskStatus});
+    createNewTask({ title, assignTo, discription, taskStatus });
     setTitle("");
     setAssignTo("");
     setDiscription("");
     setTaskStatus("");
     navigation.navigate('HomeScreen');
   }
-  let _id="";
-  if(route.params !== undefined && route.params !== " "){
-   _id = route.params.paramKey.id;
+  let _id = "";
+  if (route.params !== undefined && route.params !== " ") {
+    _id = route.params.paramKey.id;
   }
-  const handleUpdate = e =>{
+  const handleUpdate = e => {
     e.preventDefault();
     setTitle("");
     setAssignTo("");
@@ -45,7 +45,7 @@ export const CreateTask = ({ navigation, route}) => {
     navigation.navigate('Home');
   }
 
-  if(route.params !== undefined && route.params !== ""){
+  if (route.params !== undefined && route.params !== "") {
     return (
       <View style={styles.container}>
         <Image style={styles.image} source={require("../assets/addtask.png")} />
@@ -71,30 +71,30 @@ export const CreateTask = ({ navigation, route}) => {
           />
         </View>
         <View style={styles.inputView}>
-        <SelectDropdown
-          defaultButtonText="task status"
-          buttonTextStyle={(setTaskStatus=='' || setTaskStatus==undefined)? btndrop : btndrop1}
-          buttonStyle={btnScrdrop}
-          data={status}
-          defaultValue={route.params.paramKey.taskStatus}
-          value ={taskStatus}
-          onChangeText={setTaskStatus}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index)
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            // text represented after item is selected
-            // if data array is an array of objects then return selectedItem.property to render after item is selected
-            setTaskStatus(selectedItem)
-            return taskStatus
-          }}
-          rowTextForSelection={(item, index) => {
-            // text represented for each item in dropdown
-            // if data array is an array of objects then return item.property to represent item in dropdown
-            return item
-          }}
-        />
-      </View>
+          <SelectDropdown
+            defaultButtonText="task status"
+            buttonTextStyle={(setTaskStatus == '' || setTaskStatus == undefined) ? btndrop : btndrop1}
+            buttonStyle={btnScrdrop}
+            data={status}
+            defaultValue={route.params.paramKey.taskStatus}
+            value={taskStatus}
+            onChangeText={setTaskStatus}
+            onSelect={(selectedItem, index) => {
+              console.log(selectedItem, index)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              // text represented after item is selected
+              // if data array is an array of objects then return selectedItem.property to render after item is selected
+              setTaskStatus(selectedItem)
+              return taskStatus
+            }}
+            rowTextForSelection={(item, index) => {
+              // text represented for each item in dropdown
+              // if data array is an array of objects then return item.property to represent item in dropdown
+              return item
+            }}
+          />
+        </View>
         <View style={styles.inputView}>
           <TextInput
             placeholder='Task discription'
