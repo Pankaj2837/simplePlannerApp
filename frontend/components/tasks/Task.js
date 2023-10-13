@@ -3,19 +3,17 @@ import { View, Text, Button, StyleSheet } from 'react-native'
 
 
 export const Task = ({ task, onDeleteClick, navigation}) => {
-  // const onEditClick =(task)=>{
-  //  const selectedTaskDetails ={
-  //   id :task._id,
-  //   title:task.title,
-  //   assignTo:task.assignTo,
-  //   taskStatus:task.taskStatus,
-  //   discription:task.discription,
-  //   createdAt:task.createdAt
-  //  }
-  //   navigation.navigate('CreateTask',{
-  //     paramKey: selectedTaskDetails
-  //   });
-  // }onPress={() => // on edit button => onPress={() => onEditClick(task)}
+  const onEditClick =(task)=>{
+   const selectedTaskDetails ={
+    id :task._id,
+    title:task.title,
+    assignTo:task.assignTo,
+    taskStatus:task.taskStatus,
+    discription:task.discription,
+    createdAt:task.createdAt
+   }
+    navigation.navigate('CreateTask', {paramKey: selectedTaskDetails});
+  }
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -30,7 +28,7 @@ export const Task = ({ task, onDeleteClick, navigation}) => {
             <Button title='Delete' onPress={() => onDeleteClick(task)} />
           </View>
           <View>
-            <Button style={styles.btn} title='   Edit    '/>
+            <Button style={styles.btn} title='   Edit    '  onPress={() => onEditClick(task)}/>
           </View>
         </View>
       </View>

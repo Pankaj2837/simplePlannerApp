@@ -1,26 +1,12 @@
-import React, { useReducer, useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, FlatList } from 'react-native'
 import { Task } from './Task'
 import axios from 'axios'
 import { defaultStyles } from '../styles/defaultStyles'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteOneTask } from '../../Methods/Users/methods'
 export const TaskList = ({ navigation }) => {
   const [tasks, setTasks] = useState();
   const [tasksCount, setTasksCount] = useState();
-  // let { userToken } = useReducer(userContext);
-  // async () => {
-  //   try {
-  //     const userValue = await AsyncStorage.getItem('userId');
-  //     if (userValue !== null) {
-  //       userToken = userValue;
-  //     } else {
-  //       userToken = "";
-  //     }
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
   const getAlltask = async () => {
     await axios.get('http://10.0.2.2:3000/api/tasks/getAllTasks').then(function (response) {
       // handle success
@@ -32,13 +18,6 @@ export const TaskList = ({ navigation }) => {
     });
   };
   getAlltask();
-  // console.log(userToken);
-  // const tasksData = [];
-  // if (!userToken) {
-  //   return tasksData
-  // }
-
-
   const TasksTitle = `${tasksCount ? ` (${tasksCount})` : ''}`
   const deleteTask =(task)=>{ const id = task._id ; deleteOneTask({ id })};
   return (

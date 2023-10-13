@@ -1,24 +1,36 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { TextInput, Button, Image, StyleSheet, View } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
-// import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown'
+import { createNewTask } from '../Methods/Users/methods'
 export const CreateTask = ({ navigation, route}) => {
   const [title, setTitle] = useState()
   const [assignTo, setAssignTo] = useState()
   const [discription, setDiscription] = useState()
   const [taskStatus, setTaskStatus] = useState()
-  // const onError = err => setError(err)
   const status = ["InProgress", "OnHold", "Pendding", "Completed"];
-  const finalUsersList = [];
-
+  let finalUsersList = [];
+  const getAllUsers = async () => {
+    await axios.get('http://10.0.2.2:3000/api/tasks/getAllUsers').then(function (response) {
+      // handle success
+      response.data.map((user)=>{
+        finalUsersList.push(user.name);
+      });
+    }).catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
+  getAllUsers();
  
-  const handleSubmit = e => {
-    console.log("task insert api")
+  const handleSubmit = (e) => {
+    createNewTask({title,assignTo,discription,taskStatus});
     setTitle("");
     setAssignTo("");
     setDiscription("");
     setTaskStatus("");
-    navigation.navigate('Home');
+    navigation.navigate('HomeScreen');
   }
   let _id="";
   if(route.params !== undefined && route.params !== " "){
@@ -26,7 +38,6 @@ export const CreateTask = ({ navigation, route}) => {
   }
   const handleUpdate = e =>{
     e.preventDefault();
-    console.log("Task update api")
     setTitle("");
     setAssignTo("");
     setDiscription("");
@@ -48,7 +59,7 @@ export const CreateTask = ({ navigation, route}) => {
             onChangeText={setTitle}
           />
         </View>
-        {/* <View style={styles.inputView}>
+        <View style={styles.inputView}>
           <TextInput
             placeholder='Assigned user'
             placeholderTextColor={defaultColors.placeholder}
@@ -58,18 +69,8 @@ export const CreateTask = ({ navigation, route}) => {
             onChangeText={setAssignTo}
             readOnly
           />
-        </View> */}
-        {/* <View style={styles.inputView}>
-          <TextInput
-            placeholder='Task discription'
-            placeholderTextColor={defaultColors.placeholder}
-            style={styles.TextInput}
-            defaultValue={route.params.paramKey.discription}
-            value={discription}
-            onChangeText={setDiscription}
-          />
-        </View> */}
-        {/* <View style={styles.inputView}>
+        </View>
+        <View style={styles.inputView}>
         <SelectDropdown
           defaultButtonText="task status"
           buttonTextStyle={(setTaskStatus=='' || setTaskStatus==undefined)? btndrop : btndrop1}
@@ -93,8 +94,17 @@ export const CreateTask = ({ navigation, route}) => {
             return item
           }}
         />
-      </View> */}
-        <ErrorMessage error={error} />
+      </View>
+        <View style={styles.inputView}>
+          <TextInput
+            placeholder='Task discription'
+            placeholderTextColor={defaultColors.placeholder}
+            style={styles.TextInput}
+            defaultValue={route.params.paramKey.discription}
+            value={discription}
+            onChangeText={setDiscription}
+          />
+        </View>
         <Button style={styles.forgot_button} title='Update This Task' onPress={handleUpdate} />
       </View>
     )
@@ -111,7 +121,7 @@ export const CreateTask = ({ navigation, route}) => {
           onChangeText={setTitle}
         />
       </View>
-      {/* <View style={styles.inputView}>
+      <View style={styles.inputView}>
         <SelectDropdown
           defaultButtonText="Assign to user"
           buttonTextStyle={btndrop}
@@ -154,7 +164,7 @@ export const CreateTask = ({ navigation, route}) => {
             return item
           }}
         />
-      </View> */}
+      </View>
       <View style={styles.inputView}>
         <TextInput
           placeholder='Task discription'
@@ -164,7 +174,6 @@ export const CreateTask = ({ navigation, route}) => {
           onChangeText={setDiscription}
         />
       </View>
-      <ErrorMessage error={error} />
       <Button style={styles.forgot_button} title='Create new Task' onPress={handleSubmit} />
     </View>
   )

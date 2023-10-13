@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextInput, Button,Image,StyleSheet,Text,View} from 'react-native'
+import { TextInput, Button,Image,StyleSheet,View} from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
 import { registerUser } from '../Methods/Users/methods';
 

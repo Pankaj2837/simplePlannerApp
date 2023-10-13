@@ -8,19 +8,30 @@ const taskrouter = express.Router()
 // Getting all the data from the Database.
 taskrouter.post('/createNewTask', async (req, res) => {
     // Our name and age is accepting the name and age from req body. We get this data from the client app such as Postman, or any frontend client like React or Angular.
-    const taskData = new Tasks({
-        title: req.body.title,
-        assignTo: req.body.assignTo,
-        taskStatus: req.body.taskStatus,
-        discription: req.body.discription,
-        createdBy: req.body.createdBy,
-        createdAt:new Date()
-    });
+    let taskData;
+    if (req.body.taskStatus == "Completed") {
+        taskData = new Tasks({
+            title: req.body.title,
+            assignTo: req.body.assignTo,
+            taskStatus: req.body.taskStatus,
+            discription: req.body.discription,
+            createdBy: req.body.createdBy,
+            createdAt: new Date(),
+            completedAt: new Date()
+        });
+    } else {
+        taskData = new Tasks({
+            title: req.body.title,
+            assignTo: req.body.assignTo,
+            taskStatus: req.body.taskStatus,
+            discription: req.body.discription,
+            createdBy: req.body.createdBy,
+            createdAt: new Date()
+        });
+    }
     try {
         // In the try block, we are saving the data using data.save(). Then, we are storing the data in a const called dataToSave.
-
         // We are also sending the success message with the data in the response body.
-
         // And in the catch block, we are receiving any errors if we get any.
         const dataToSave = await taskData.save();
         res.status(200).json(dataToSave);
@@ -39,7 +50,7 @@ taskrouter.get('/getAllTasks', async (req, res) => {
         // If we have an error, we will get that too.
         const data = await Tasks.find({});
         const tasksCount = await Tasks.find().count();
-        res.status(200).json({data,tasksCount});
+        res.status(200).json({ data, tasksCount });
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -48,7 +59,7 @@ taskrouter.get('/getAllTasks', async (req, res) => {
 
 taskrouter.get('/getAllUsers', async (req, res) => {
     try {
-       const data = await Users.find({},{name:1});
+        const data = await Users.find({}, { name: 1 });
         res.status(200).json(data);
     }
     catch (error) {
@@ -57,10 +68,12 @@ taskrouter.get('/getAllUsers', async (req, res) => {
 })
 taskrouter.post('/deleteTask', async (req, res) => {
     try {
-        const data = await Tasks.remove({_id: req.body.id });
+        console.log(req.body.id);
+        const data = await Tasks.deleteOne({ _id: req.body.id });
         res.status(200).json(data);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: error.message })
     }
 })

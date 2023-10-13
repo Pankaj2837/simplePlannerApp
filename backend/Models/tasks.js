@@ -34,6 +34,7 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         label: 'createdBy',
         max: 100,
+        optional:true
       },
       changedBy: {
         type: String,
