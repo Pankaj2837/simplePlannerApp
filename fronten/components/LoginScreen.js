@@ -1,29 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { retrieveData } from '../Methods/Users/methods';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
-import { renderScreens } from './MainNavigator';
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const onSignUp = () => navigation.navigate('SignUp');
-  let userId;
-  let userValue;
-  const retrieveData1 = async () => {
-    try {
-      userValue = await AsyncStorage.getItem('userId');
-      console.log(userValue);
-      if (userValue !== null) {
-        return userValue;
-      } else {
-        return "not found";
-      }
-    } catch (error) {
-      return error;
-    }
-  };
+  const onSignUp = () => navigation.navigate('SignUp')
   const storeLocalStorage = async (userId)=>{
     try {
       await AsyncStorage.setItem('userId', userId);
@@ -48,6 +31,7 @@ export const LoginScreen = ({ navigation }) => {
         });
       };
       await login({ email, password });
+      navigation.navigate("HomeScreen");
     }
   }
 

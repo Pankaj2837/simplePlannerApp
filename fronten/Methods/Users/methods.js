@@ -29,3 +29,12 @@ export const getUserById = ({id}) => {
     console.log(error);
   });
 };
+
+ export const deleteOneTask = async ({id}) => {
+  await axios.post('http://10.0.2.2:3000/api/tasks/deleteTask', { id:id }).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    // handle error
+    console.log(error);
+  });
+};

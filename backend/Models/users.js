@@ -20,6 +20,10 @@ const UsersSchema = new mongoose.Schema({
     gender: {
         required: true,
         type: String
+    },
+    createdAt:{
+        required: true,
+        type: Date
     }
 })
 

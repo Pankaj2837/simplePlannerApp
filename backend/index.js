@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./Routes/routes');
+const userRoutes = require('./Routes/userRroutes');
+const tasksRoutes = require('./Routes/tasksRoutes')
 const cors = require('cors');
 const mongoString = process.env.DATABASE_URL;
 
@@ -13,7 +14,8 @@ const PORT = 3000;
 //Here, this app.use takes two things. One is the base endpoint, and the other is the contents of the routes. Now, all our endpoints will start from '/api'.
 app.use(express.json());
 
-app.use('/api', routes);
+app.use('/api', userRoutes);
+app.use('/api/tasks', tasksRoutes);
 
 app.listen(PORT, async (error) => {
     if (!error) {

@@ -2,8 +2,7 @@ import React from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
 
 
-export const Task = ({ task, onDeleteClick,navigation}) => {
-console.log(task);
+export const Task = ({ task, onDeleteClick, navigation}) => {
   // const onEditClick =(task)=>{
   //  const selectedTaskDetails ={
   //   id :task._id,
@@ -16,26 +15,25 @@ console.log(task);
   //   navigation.navigate('CreateTask',{
   //     paramKey: selectedTaskDetails
   //   });
-  // }
+  // }onPress={() => // on edit button => onPress={() => onEditClick(task)}
   return (
     <View style={styles.container}>
-      {/* <View style={styles.card}>
+      <View style={styles.card}>
         <Text style={styles.title}>Title: {task.title}</Text>
         <Text style={styles.aggignUser}> Assigned User: {task.assignTo}</Text>
         <Text style={(task.taskStatus == 'OnHold') ? styles.statusOnhold : (task.taskStatus == 'InProgress') ? styles.statusInprogress : (task.taskStatus == 'Completed') ? styles.statusCompleted : styles.status}> Status: {task.taskStatus}</Text>
         <Text style={styles.discription}> Discription: {task.discription}</Text>
-        <Text style={styles.date}> Start Date: {task.createdAt.getDate()+"/"+task.createdAt.getMonth()+"/"+task.createdAt.getFullYear()+ "  "+task.createdAt.getHours()  +":"+task.createdAt.getMinutes()+":"+task.createdAt.getSeconds() }</Text>
-        <Text style={styles.date}> End Date: {(task.taskStatus == 'Completed') ? task.completedAt.getDate()+"/"+task.completedAt.getMonth()+"/"+task.completedAt.getFullYear()+ "  "+task.completedAt.getHours()  +":"+task.completedAt.getMinutes()+":"+task.completedAt.getSeconds() : "NA(Task is not completed)"}</Text>
+        <Text style={styles.date}> Start Date: {new Date(task.createdAt).getDate()+"/"+new Date(task.createdAt).getMonth()+"/"+new Date(task.createdAt).getFullYear()+ "  "+new Date(task.createdAt).getHours()  +":"+new Date(task.createdAt).getMinutes()+":"+new Date(task.createdAt).getSeconds() }</Text>
+        <Text style={styles.date}> End Date: {(task.taskStatus == 'Completed') ? new Date(task.completedAt).getDate()+"/"+new Date(task.completedAt).getMonth()+"/"+new Date(task.completedAt).getFullYear()+ "  "+new Date(task.completedAt).getHours()  +":"+new Date(task.completedAt).getMinutes()+":"+new Date(task.completedAt).getSeconds() : "NA(Task is not completed)"}</Text>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }} >
           <View style={styles.btn}>
             <Button title='Delete' onPress={() => onDeleteClick(task)} />
           </View>
           <View>
-            <Button style={styles.btn} title='   Edit    ' onPress={() => onEditClick(task)}/>
+            <Button style={styles.btn} title='   Edit    '/>
           </View>
         </View>
-      </View> */}
-      Task code will come here..
+      </View>
     </View>
   )
 }
