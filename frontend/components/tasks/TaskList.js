@@ -33,7 +33,7 @@ export const TaskList = ({ navigation }) => {
               task={task}
               navigation={navigation} 
               onDeleteClick={deleteTask}
-              />
+            />
           )}
           keyExtractor={task => task._id}
         />

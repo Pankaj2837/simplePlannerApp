@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { TextInput, Button, Image, StyleSheet, View } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
 import SelectDropdown from 'react-native-select-dropdown'
-import { createNewTask } from '../Methods/Users/methods'
+import { createNewTask, updateTask } from '../Methods/Users/methods'
 export const CreateTask = ({ navigation, route }) => {
   const [title, setTitle] = useState()
   const [assignTo, setAssignTo] = useState()
@@ -36,13 +36,22 @@ export const CreateTask = ({ navigation, route }) => {
   if (route.params !== undefined && route.params !== " ") {
     _id = route.params.paramKey.id;
   }
-  const handleUpdate = e => {
-    e.preventDefault();
+  const handleUpdate = () => {
+    console.log("id "+_id);
+    if(_id){
+      try{
+        updateTask({ _id,title, assignTo, discription, taskStatus });
+      }catch(err){
+        console.log(err);
+      }
+    }else{
+      console.log("Id not present to update the task");
+    }
     setTitle("");
     setAssignTo("");
     setDiscription("");
     setTaskStatus("");
-    navigation.navigate('Home');
+    navigation.navigate('HomeScreen');
   }
 
   if (route.params !== undefined && route.params !== "") {

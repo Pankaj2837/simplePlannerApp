@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native'
 
 
 export const Task = ({ task, onDeleteClick, navigation}) => {
-  const onEditClick =(task)=>{
+  const onEditClick = async (task)=>{
    const selectedTaskDetails ={
     id :task._id,
     title:task.title,
@@ -12,7 +12,7 @@ export const Task = ({ task, onDeleteClick, navigation}) => {
     discription:task.discription,
     createdAt:task.createdAt
    }
-    navigation.navigate('CreateTask', {paramKey: selectedTaskDetails});
+    await navigation.navigate('CreateTask', {paramKey: selectedTaskDetails});
   }
   return (
     <View style={styles.container}>
