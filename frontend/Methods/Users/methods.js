@@ -39,7 +39,8 @@ export const getUserById = ({id}) => {
 };
 
 export const createNewTask = ({title,assignTo,discription,taskStatus}) => {
-  axios.post('http://10.0.2.2:3000/api/tasks/createNewTask', {
+  axios.post('http://10.0.2.2:3000/api/tasks/updateTask', {
+    //for any andorid system localhost is 10.0.2.2 so istead of localhost we need to replace it by 10.0.2.2 url became http://10.0.2.2:3000/api/registerUser
     title: title,
     assignTo: assignTo,
     discription: discription,
@@ -52,9 +53,9 @@ export const createNewTask = ({title,assignTo,discription,taskStatus}) => {
     console.log(error);
   });
 }
-export const updateTask = async ({_id,title,assignTo,discription,taskStatus}) => {
-   await axios.post('http://10.0.2.2:3000/api/tasks/updateTask', {
-    _id:_id,
+export const updateTask = ({title,assignTo,discription,taskStatus}) => {
+  axios.post('http://10.0.2.2:3000/api/tasks/updateTask', {
+    //for any andorid system localhost is 10.0.2.2 so istead of localhost we need to replace it by 10.0.2.2 url became http://10.0.2.2:3000/api/registerUser
     title: title,
     assignTo: assignTo,
     discription: discription,

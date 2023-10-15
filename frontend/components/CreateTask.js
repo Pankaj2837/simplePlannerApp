@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { TextInput, Button, Image, StyleSheet, View } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
 import SelectDropdown from 'react-native-select-dropdown'
-import { createNewTask, updateTask } from '../Methods/Users/methods'
+import { createNewTask } from '../Methods/Users/methods'
 export const CreateTask = ({ navigation, route }) => {
   const [title, setTitle] = useState()
   const [assignTo, setAssignTo] = useState()
@@ -36,22 +36,14 @@ export const CreateTask = ({ navigation, route }) => {
   if (route.params !== undefined && route.params !== " ") {
     _id = route.params.paramKey.id;
   }
-  const handleUpdate = () => {
-    console.log("id "+_id);
-    if(_id){
-      try{
-        updateTask({ _id,title, assignTo, discription, taskStatus });
-      }catch(err){
-        console.log(err);
-      }
-    }else{
-      console.log("Id not present to update the task");
-    }
+  const handleUpdate = e => {
+    updateTask({ title, assignTo, discription, taskStatus });
+    e.preventDefault();
     setTitle("");
     setAssignTo("");
     setDiscription("");
     setTaskStatus("");
-    navigation.navigate('HomeScreen');
+    navigation.navigate('Home');
   }
 
   if (route.params !== undefined && route.params !== "") {
@@ -111,7 +103,7 @@ export const CreateTask = ({ navigation, route }) => {
             style={styles.TextInput}
             defaultValue={route.params.paramKey.discription}
             value={discription}
-            onChangeText={setDiscription}
+            onChangeText={setDiscriptin}
           />
         </View>
         <Button style={styles.forgot_button} title='Update This Task' onPress={handleUpdate} />

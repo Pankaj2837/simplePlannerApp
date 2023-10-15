@@ -78,39 +78,5 @@ taskrouter.post('/deleteTask', async (req, res) => {
     }
 })
 
-taskrouter.post('/updateTask', async (req, res) => {
-    // Our name and age is accepting the name and age from req body. We get this data from the client app such as Postman, or any frontend client like React or Angular.
-    let updateTask;
-    let userToUpdate = req.body._id
-    console.log(userToUpdate);
-    if (req.body.taskStatus == "Completed") {
-        updateTask = {
-            title: req.body.title,
-            assignTo: req.body.assignTo,
-            taskStatus: req.body.taskStatus,
-            discription: req.body.discription,
-            changedBy: req.body.changedBy,
-            completedAt: new Date()
-        };
-    } else {
-        updateTask = {
-            title: req.body.title,
-            assignTo: req.body.assignTo,
-            taskStatus: req.body.taskStatus,
-            discription: req.body.discription,
-            changedBy: req.body.changedBy,
-        };
-    }
-    try {
-        // In the try block, we are saving the data using data.save(). Then, we are storing the data in a const called dataToSave.
-        // We are also sending the success message with the data in the response body.
-        // And in the catch block, we are receiving any errors if we get any.
-        const dataToUpdate = await Tasks.updateOne({ _id: userToUpdate }, updateTask);
-        res.status(200).json(dataToUpdate);
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-})
 
 module.exports = taskrouter;

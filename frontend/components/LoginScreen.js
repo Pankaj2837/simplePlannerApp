@@ -7,10 +7,10 @@ export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const onSignUp = () => navigation.navigate('SignUp')
-  const storeLocalStorage = async (userId)=>{
+  const storeLocalStorage = async (userId) => {
     try {
       await AsyncStorage.setItem('userId', userId);
-      } catch (error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -21,10 +21,10 @@ export const LoginScreen = ({ navigation }) => {
       alert("Please fill all details!!");
     } else {
       const login = async ({ email, password }) => {
-         await axios.post('http://10.0.2.2:3000/api/getloggedInUser', { email: email, password: password }).then(function (response) {
-          // handle success
-           userId =  response.data._id;
-           storeLocalStorage(userId);
+        await axios.post('http://10.0.2.2:3000/api/getloggedInUser', { email: email, password: password }).then(response => {
+          if (response.status == 200) {
+            AsyncStorage.setItem('token', JSON.stringify(response.data)).then(res => { console.log("first") })
+          }
         }).catch(function (error) {
           // handle error
           console.log(error);
@@ -34,7 +34,6 @@ export const LoginScreen = ({ navigation }) => {
       navigation.navigate("HomeScreen");
     }
   }
-
   // render login form
   return (
     <View style={styles.container}>

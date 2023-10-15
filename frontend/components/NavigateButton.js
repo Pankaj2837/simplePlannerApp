@@ -4,12 +4,22 @@ import { defaultColors } from './styles/defaultStyles'
 
 export const NavigateButton = ({ title, route }) => {
   const navigation = useNavigation()
-
-  return (
-    <Button
-      title={title}
-      color={defaultColors.primary}
-      onPress={() => navigation.navigate(route)}
-    />
-  )
+  if (title == 'LOGOUT' && route == 'SignIn') {
+    AsyncStorage.removeItem('token')
+    return (
+      <Button
+        title={title}
+        color={defaultColors.primary}
+        onPress={() => navigation.navigate(route)}
+      />
+    )
+  } else {
+    return (
+      <Button
+        title={title}
+        color={defaultColors.primary}
+        onPress={() => navigation.navigate(route)}
+      />
+    )
+  }
 }
