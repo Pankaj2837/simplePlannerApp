@@ -25,21 +25,25 @@ export const MainNavigator = () => {
   return (
     <ContextApi.Provider value={{ data, setData }}>
       <NavigationContainer>
-        <Stack.Navigator>{data == null ?
-          (
-            <>
-              <Stack.Screen name='SignIn' component={LoginScreen} options={{ title: 'Sign In Planner' }} />
-              <Stack.Screen name='SignUp' component={RegistrationScreen} options={{ title: 'Registration In Planner' }} />
-            </>
-          )
-          :
-          (
-            <>
-              <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ title: '     Welcome Home', headerRight, headerLeft }} />
-              <Stack.Screen name='CreateTask' component={CreateTask} options={{ title: '           Create Tasks', headerLeft }} />
-            </>
-          )
-        }
+        <Stack.Navigator>
+          {
+            data == null ?
+              (
+                <>
+                  <Stack.Screen name='SignIn' component={LoginScreen} options={{ title: 'Sign In Planner' }} />
+                  <Stack.Screen name='SignUp' component={RegistrationScreen} options={{ title: 'Registration In Planner' }} />
+                  <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ title: '     Welcome Home', headerRight, headerLeft }} />
+                  <Stack.Screen name='CreateTask' component={CreateTask} options={{ title: '           Create Tasks', headerLeft }} />
+                </>
+              )
+              :
+              (
+                <>
+                  <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ title: '     Welcome Home', headerRight, headerLeft }} />
+                  <Stack.Screen name='CreateTask' component={CreateTask} options={{ title: '           Create Tasks', headerLeft }} />
+                </>
+              )
+          }
         </Stack.Navigator>
       </NavigationContainer>
     </ContextApi.Provider>
