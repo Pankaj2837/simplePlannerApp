@@ -43,7 +43,7 @@ export const CreateTask = ({ navigation, route }) => {
     setAssignTo("");
     setDiscription("");
     setTaskStatus("");
-    navigation.navigate('Home');
+    navigation.navigate('HomeScreen');
   }
 
   if (route.params !== undefined && route.params !== "") {
