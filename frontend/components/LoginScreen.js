@@ -7,13 +7,6 @@ export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const onSignUp = () => navigation.navigate('SignUp')
-  const storeLocalStorage = async (userId) => {
-    try {
-      await AsyncStorage.setItem('userId', userId);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const onSignIn = async (e) => {
     e.preventDefault();
