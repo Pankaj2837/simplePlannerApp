@@ -1,14 +1,17 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { defaultColors } from './styles/defaultStyles'
+import { login } from '../userContext/actions/auth';
+
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const onSignUp = () => navigation.navigate('SignUp')
-
-  const onSignIn = async (e) => {
+  const dispatch = useDispatch();
+  /*const onSignIn = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       alert("Please fill all details!!");
@@ -16,7 +19,7 @@ export const LoginScreen = ({ navigation }) => {
       const login = async ({ email, password }) => {
         await axios.post('http://10.0.2.2:3000/api/getloggedInUser', { email: email, password: password }).then(response => {
           if (response.status == 200) {
-            AsyncStorage.setItem('token', JSON.stringify(response.data)).then(res => { console.log("first") })
+            AsyncStorage.setItem('token', JSON.stringify(response.data)).then(_res => { console.log("first") })
           }
         }).catch(function (error) {
           // handle error
@@ -25,6 +28,29 @@ export const LoginScreen = ({ navigation }) => {
       };
       await login({ email, password });
       navigation.navigate("HomeScreen");
+    }
+  }*/
+  const onLogin = () => {
+    let user = {
+      username: email,
+      password: password,
+    }
+    dispatch(login(user))
+      .then((response) => {
+        if (response.status == "success") {
+          navigation.navigate("HomeScreen");
+        }
+      })
+      .catch((error) => {
+        navigation.replace("SignIn");
+      });
+  };
+  const onSignIn = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      alert("Please fill all details!!");
+    } else {
+      onLogin()
     }
   }
   // render login form
@@ -51,7 +77,7 @@ export const LoginScreen = ({ navigation }) => {
         />
       </View>
       <TouchableOpacity>
-        <Text style={styles.forgot_button} onPress={onSignUp}>Don't have an account? Click here to Sign In </Text>
+        <Text style={styles.forgot_button} onPress={onSignUp}>Don't have an account? Click here to sign in </Text>
       </TouchableOpacity>
       <Button title='Sign In' onPress={onSignIn} />
     </View>

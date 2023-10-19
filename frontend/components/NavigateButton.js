@@ -1,16 +1,27 @@
 import { Button } from 'react-native'
+import { useDispatch } from "react-redux";
 import { useNavigation } from '@react-navigation/native'
 import { defaultColors } from './styles/defaultStyles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { logout } from '../userContext/actions/auth'
+
+
 export const NavigateButton = ({ title, route }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch(logout()).then((response) => {
+      if (response.status === "success") {
+        navigation.replace("SignIn");
+      }
+    });
+    console.log("Logged out in successfully");
+  };
   if (title == 'LOGOUT' && route == 'SignIn') {
-    AsyncStorage.removeItem('token')
     return (
       <Button
         title={title}
         color={defaultColors.primary}
-        onPress={() => navigation.navigate(route)}
+        onPress={onLogout}
       />
     )
   } else {
