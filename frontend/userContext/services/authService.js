@@ -21,7 +21,7 @@ const logIn = async (user) => {
     };
 };
 const logOut = async () => {
-    AsyncStorage.clear();
+    await AsyncStorage.clear();
     return {
         status: "success",
         message: "You are logged out",
